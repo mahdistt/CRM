@@ -1,0 +1,83 @@
+{% extends 'dashboard/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+<head>
+    <title> register </title>
+</head>
+<body>
+{% block base_content %}
+    <div class="col p-4">
+
+        <div class="card">
+            <h5 class="card-header font-weight-light">create new contact</h5>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <label for="name" id="id_name">نام سازمان:</label>
+                {{ form_org.name|add_class:'form-contorl' }}<br>
+                <label for="city" id="id_city">محل سازمان:</label>
+                {{ form_org.city|add_class:'form-contorl' }}<br>
+                <label for="number" id="id_number">شماره تلفن سازمان:</label>
+                {{ form_org.number|add_class:'form-contorl' }}<br>
+                <label for="email" id="id_email">ایمیل سازمان:</label>
+                {{ form_org.email|add_class:'form-contorl' }}<br>
+                <label for="number_of_employees" id="id_number_of_employees">تعداد کارمندان سازمان:</label>
+                {{ form_org.number_of_employees|add_class:'form-contorl' }}<br>
+                <label for="related_product" id="id_related_product">محصولات سازمان:</label>
+                {{ form_org.related_product|add_class:'form-contorl' }}<br>
+                <label for="introducer_name" id="id_introducer_name">نام رابط سازمان :</label>
+                {{ form_org.introducer_name|add_class:'form-contorl' }}<br>
+                <label for="introducer_number" id="id_introducer_number">شماره رابط سازمان:</label>
+                {{ form_org.introducer_number |add_class:'form-contorl' }}<br>
+
+            </form>
+            <button id="send-form" class="btn btn-primary ">ثبت💾</button>
+        </div>
+    </div>
+{% endblock %}
+</body>
+{% block page_scripts %}
+    <script>
+        {#regex#}
+        $(document).ready(function () {
+            $('#send-form').on('click', function (event) {
+                var name = $('#id_name').val();
+                var city = $('#id_city').val();
+                var number = $('#id_number').val();
+                var email = $('#id_email').val();
+                var number_of_employees = $('#id_number_of_employees').val();
+                var related_product = $('#id_related_product').val();
+                var introducer_name = $('#id_introducer_name').val();
+                var introducer_number = $('#id_introducer_number').val();
+                debugger;
+                print("w")
+                var operator_info = $('#id_operator_info').val();
+                $.ajax({
+                    url: '{% url "dashboard:add" %}',
+                    method: 'POST',
+                    data: {
+                        name: name,
+                        city: city,
+                        number: number,
+                        email: email,
+                        number_of_employees: number_of_employees,
+                        related_product: related_product,
+                        introducer_name: introducer_name,
+                        introducer_number: introducer_number,
+                        operator_info: operator_info,
+                    },
+                    success: function (response) {
+                        alert('با موفقیت ذخیره شد.');
+                    },
+                    error: function (response) {
+                        alert('اطلاعات وارد شده صحیح نیست.');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+</body>
+</html>

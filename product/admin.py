@@ -13,15 +13,24 @@ class RegisterProduct(admin.ModelAdmin):
         'pk',
         'name',
         'price',
-        'pdf_catalog',
-        'img_catalog',
         'technical_features',
         'taxation',
+        'pdf_catalog',
+        'img_catalog',
+
+
     )
     search_fields = (
         'name',
-        'description__icontains',
+        'pk',
+
     )
     list_editable = (
         'price',
     )
+    list_filter = (
+        'price',
+        'taxation',
+
+    )
+

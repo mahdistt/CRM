@@ -1,0 +1,56 @@
+{% extends 'dashboard/base.html' %}
+
+{% block page_header_title %}
+    Organization: {{ object.title }}
+{% endblock %}
+{% block base_content %}
+    <div class="col p-4">
+        <div class="card">
+
+            <h5 class="card-header font-weight-light">organization info: {{ object.name }}</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">name</th>
+                    <th scope="col">city</th>
+                    <th scope="col">number</th>
+                    <th scope="col">email</th>
+                    <th scope="col">number_of_employees</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ object.name }}</td>
+                    <td>{{ object.city }}</td>
+                    <td>{{ object.number }}</td>
+                    <td>{{ object.email }}</td>
+                    <td>{{ object.number_of_employees }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <h5 class="card-header font-weight-light">introducer info: {{ object.introducer_name }}</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Introducer Name</th>
+                    <th scope="col">Introducer Number</th>
+                    <th scope="col">Operator</th>
+                    <th scope="col">Create Time	</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>{{ object.introducer_name }}</td>
+                    <td>{{ object.introducer_number }}</td>
+                    <td>{{ object.operator_info }}</td>
+                    <td>{{ object.created_info }}</td>
+
+
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+{% endblock %}
