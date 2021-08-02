@@ -15,6 +15,7 @@ class OrganizationRegisterForm(forms.ModelForm):
             'related_product',
             'introducer_name',
             'introducer_number',
+            'operator_info',
 
         )
 

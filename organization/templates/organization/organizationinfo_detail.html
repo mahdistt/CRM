@@ -7,7 +7,7 @@
     <div class="col p-4">
         <div class="card">
 
-            <h5 class="card-header font-weight-light">organization info: {{ object.name }}</h5>
+            <h5 class="card-header font-weight-light" id="label1">organization info: {{ object.name }}</h5>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -15,7 +15,8 @@
                     <th scope="col">city</th>
                     <th scope="col">number</th>
                     <th scope="col">email</th>
-                    <th scope="col">number_of_employees</th>
+                    <th scope="col">number of employees</th>
+                    <th scope="col">related product</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,17 +26,24 @@
                     <td>{{ object.number }}</td>
                     <td>{{ object.email }}</td>
                     <td>{{ object.number_of_employees }}</td>
+                    <td>{{ related.number_of_employees }}</td>
+{#                    <td>{{ object.related_product }}</td>#}
+                    <td>
+                        {% for obj in related.related_product %}
+                            ({{ obj }})
+                        {% endfor %}
+                    </td>
                 </tr>
                 </tbody>
             </table>
-            <h5 class="card-header font-weight-light">introducer info: {{ object.introducer_name }}</h5>
+            <h5 class="card-header font-weight-light" id="label2">introducer info: {{ object.introducer_name }}</h5>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Introducer Name</th>
                     <th scope="col">Introducer Number</th>
                     <th scope="col">Operator</th>
-                    <th scope="col">Create Time	</th>
+                    <th scope="col">Create Time</th>
                 </tr>
                 </thead>
 

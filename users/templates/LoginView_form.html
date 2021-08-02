@@ -1,4 +1,6 @@
 {% extends 'dashboard/base.html' %}
+
+{% load widget_tweaks %}
 <html>
 <head>
     <title>Login</title>
@@ -6,11 +8,12 @@
 
 <body>
 {% block base_content %}
-    <form method="POST">
+    <form method="post" >
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" name="summit">
+        <button id="send-form" class="btn btn-primary " name="submit">Login</button>
+
     </form>
-    </body>
 {% endblock %}
+</body>
 </html>

@@ -1,57 +1,74 @@
 import itertools
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_GET, require_POST
-from django.views.generic import DetailView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
+from dashboard.forms import OrganizationRegisterForm
 from organization import models
-from . import forms
 
 
 # Create your views here.
 @login_required
 def show_dashboard(request):
+    """
+    Display special organization information for each operator
+    """
     # if not request.user.is_superuser:
     if request.user.is_authenticated:
         operator_organization = models.OrganizationInfo.objects.filter(operator_info=request.user)
+        related_product = models.OrganizationProduct.objects.all()
+        # related_product = models.OrganizationProduct.objects.filter(id__in=models.OrganizationInfo.related_product)
         other_number = []
         qs = list(itertools.chain(operator_organization, other_number))
-        paginated = Paginator(qs, 2)
+        paginated = Paginator(qs, 3)
         paginated_page = paginated.get_page(request.GET.get('page', 1))
         return render(request=request,
                       context={'object_list': paginated_page,
                                'page_obj': 'paginated',
+                               'related': related_product,
                                },
                       template_name='dashboard/dashboard.html')
     else:
         return render(request, 'dashboard/dashboard.html')
 
 
-@csrf_exempt
-@require_POST
-def get_info_register_form(request):
+class CreateFormOrganization(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """
-    register organizations by form (AJAX)
+        Create view for register organizations
     """
-    form_instance = forms.OrganizationRegisterForm(data=request.POST)
-    if form_instance.is_valid():
-        form_instance.instance.operator_info = request.user
-        form_instance.save()
-        return render(request, 'dashboard/dashboard.html')
+    model = models.OrganizationInfo
+    form_class = OrganizationRegisterForm
+    template_name = 'dashboard/register_organization.html'
+    success_message = "%(name) was register successfully"
+    success_url = reverse_lazy('dashboard:dashboard')
 
-
-@csrf_exempt
-@require_GET
-@login_required
-def show_register_organization_form(request):
-    """
-    Show register form by widget tweaks
-    """
-    return render(request, 'dashboard/register_organization.html', {
-        'form_org': forms.OrganizationRegisterForm(),
-    })
-
+# Ajax view for register form
+# ------------------------------------
+# @require_POST
+# def get_info_register_form(request):
+#     """
+#     register organizations by form (AJAX)
+#     """
+#
+#     form_instance = forms.OrganizationRegisterForm(data=request.POST)
+#     if not form_instance.is_valid():
+#         form_instance.instance.operator_info = request.user
+#         form_instance.save()
+#         return render(request, 'dashboard/dashboard.html')
+#
+# ------------------------------------
+# @require_GET
+# @login_required
+# def show_register_organization_form(request):
+#     """
+#     Show register form by widget tweaks
+#     """
+#     return render(request, 'dashboard/register_organization.html', {
+#         'form_org': forms.OrganizationRegisterForm(),
+#     })
+# ------------------------------------

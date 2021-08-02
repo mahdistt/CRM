@@ -23,7 +23,9 @@
                     <th scope="col">شماره تماس</th>
                     <th scope="col">ایمیل</th>
                     <th scope="col">تعداد کارمندان</th>
+                    <th scope="col">related_product</th>
                     <th scope="col">دیدن جزییات</th>
+                    <th scope="col">پاک کردن</th>
                 </tr>
                 </thead>
 
@@ -37,16 +39,33 @@
                         <td>{{ org.number }}</td>
                         <td>{{ org.email }}</td>
                         <td>{{ org.number_of_employees }}</td>
+                        <td>
+                            {% for obj in org.related_product.all %}
+                                ({{ obj }})
+                            {% endfor %}
+                        </td>
                         <td><a href="{% url 'organization:detail' org.pk %}">view detail</a></td>
+                        <td><a href="{% url 'organization:delete' org.pk %}">delete</a></td>
+
                     </tr>
                     </tbody>
                 {% endfor %}
+
             </table>
+   {% for s in related.related_product %}
+                    ({{ s }})
+                {% endfor %}
         </div>
         {% include 'dashboard/pagination.html' %}
         {#        <a href="{% url 'phones:print-number' %}" class="btn btn-primary col-md-1">Print</a>#}
     </div>
-
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

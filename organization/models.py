@@ -37,7 +37,7 @@ class OrganizationInfo(models.Model):
 
 class OrganizationProduct(models.Model):
     """
-     Related manufacture product with our product
+     Related manufacture product with our products
     """
     organization_product_name = models.CharField(max_length=100, verbose_name="نام محصولات تولیدی")
     related_product = models.ManyToManyField(Product.ProductInfo, verbose_name='محصولات پیشنهادی ما')
