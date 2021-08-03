@@ -16,6 +16,5 @@ class OrganizationRegisterForm(forms.ModelForm):
             'introducer_name',
             'introducer_number',
             'operator_info',
-
         )
 

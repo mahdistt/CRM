@@ -85,14 +85,19 @@
             <div id='submenu1' class="collapse sidebar-submenu">
                 <a href="{% url 'dashboard:dashboard' %}"
                    class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Organization Info</span>
+                    <span class="menu-collapsed">Organization Information</span>
                 </a>
                 <a href="{% url 'dashboard:create' %}"
                    class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">Register Organization</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Tables</span>
+                <a href="{% url 'quote:create-quote' %}"
+                   class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Quote Information</span>
+                </a>
+                <a href="{% url 'quote:create-quote' %}"
+                   class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Create Quote</span>
                 </a>
             </div>
             <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
@@ -108,7 +113,8 @@
                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">Settings</span>
                 </a>
-                <a href="{% url 'users:edit_profile' %}" class="list-group-item list-group-item-action bg-dark text-white">
+                <a href="{% url 'users:edit_profile' %}"
+                   class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">Personal Information</span>
                 </a>
             </div>

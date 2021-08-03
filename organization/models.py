@@ -28,7 +28,8 @@ class OrganizationInfo(models.Model):
         verbose_name_plural = 'Organization Information'
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
+
     def get_organization_name(self):
         return self.name
 

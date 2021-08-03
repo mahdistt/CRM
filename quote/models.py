@@ -12,7 +12,7 @@ class Quote(models.Model):
     """
     creator = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, verbose_name='نام ادمین')
     organization_related = models.ForeignKey(OrganizationInfo, on_delete=models.PROTECT, verbose_name='شرکت')
-    create_time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
+    created_info = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
 
     def __str__(self):
         return self.organization_related
@@ -26,9 +26,12 @@ class Quote(models.Model):
         """
         return self.quoteitem_set.all().annotate(
             total_quote_price=F('price') * F('price')).aggregate(
-            Sum('total_start_price'))['total_start_price__sum']
+            Sum('total_quote_price'))['total_quote_price__sum']
 
     def get_quote_discount(self):
+        """
+        Return total quote discount
+        """
         return self.quoteitem_set.all().annotate(
             total_quote_price=F('price') * F('quantity')).annotate(
             discount=((F('total_quote_price') * F('discount')) / 100)).aggregate(
@@ -38,14 +41,18 @@ class Quote(models.Model):
         """
         Calculate 9% taxation
         """
-        pass
+        if ProductInfo.taxation is True:
+            total, discount = self.get_total_quote_price(), self.get_quote_discount()
+            return (total - discount) * 0.9
+        else:
+            return 0
 
 
 class QuoteItem(models.Model):
     """
     Quote items are generated here
     """
-    quote = models.ForeignKey(Quote, on_delete=models.CASCADE, verbose_name='اقلام پیش فاکتور')
+    quote = models.ForeignKey(Quote, on_delete=models.CASCADE, verbose_name='پیش فاکتور')
     product = models.ForeignKey(ProductInfo, on_delete=models.PROTECT, verbose_name='محصولات شرکت')
     price = models.PositiveIntegerField(default=0, verbose_name='قیمت')
     quantity = models.PositiveIntegerField(default=1, verbose_name='تعداد')
