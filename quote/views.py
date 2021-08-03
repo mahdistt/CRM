@@ -25,4 +25,7 @@ class QuoteListView(LoginRequiredMixin, ListView):
     """
     Show all quotes created by the operator
     """
-    pass
+    model = models.Quote
+    template_name = 'list-quote.html'
+    paginate_by = 5
+
