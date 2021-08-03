@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel='stylesheet' href="{% static 'dashboard/css/bootstrap.min.css' %}"/>
     <link rel='stylesheet' href="{% static 'dashboard/css/style.css' %}"/>
-    {% block page_header_title %}
-        {{ page_title }}
-    {% endblock %}
+    <title>
+        {% block page_header_title %}
+            Dashboard
+        {% endblock %}
+    </title>
 
 </head>
 <body>
@@ -49,7 +51,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"> Menu </a>
                 <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-                    <a class="dropdown-item" href="#top">hjsahgjsa</a>
+                    <a class="dropdown-item" href="#top">Dashboard</a>
                     <a class="dropdown-item" href="#top">Profile</a>
                     <a class="dropdown-item" href="#top">Tasks</a>
                     <a class="dropdown-item" href="#top">Etc ...</a>
@@ -96,7 +98,7 @@
             <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
                class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="glyphicon glyphicon-alert"></span>
                     <span class="menu-collapsed ">Profile</span>
                     <span class="submenu-icon ml-auto"></span>
                 </div>
@@ -106,8 +108,8 @@
                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">Settings</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Password</span>
+                <a href="{% url 'users:edit_profile' %}" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Personal Information</span>
                 </a>
             </div>
             <a href="#" class="bg-dark list-group-item list-group-item-action">

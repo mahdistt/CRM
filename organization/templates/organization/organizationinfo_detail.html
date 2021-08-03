@@ -1,22 +1,22 @@
 {% extends 'dashboard/base.html' %}
 
 {% block page_header_title %}
-    Organization: {{ object.title }}
+    Organization: {{ object.name }}
 {% endblock %}
 {% block base_content %}
     <div class="col p-4">
         <div class="card">
-
             <h5 class="card-header font-weight-light" id="label1">organization info: {{ object.name }}</h5>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">name</th>
-                    <th scope="col">city</th>
-                    <th scope="col">number</th>
-                    <th scope="col">email</th>
-                    <th scope="col">number of employees</th>
-                    <th scope="col">related product</th>
+                    <th scope="col">نام شرکت</th>
+                    <th scope="col">استان</th>
+                    <th scope="col">تلفن</th>
+                    <th scope="col">ایمیل</th>
+                    <th scope="col">تعداد کارمندان</th>
+                    <th scope="col">محصولات تولیدی</th>
+                    <th scope="col">محصولات پیشنهادی</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,10 +26,13 @@
                     <td>{{ object.number }}</td>
                     <td>{{ object.email }}</td>
                     <td>{{ object.number_of_employees }}</td>
-                    <td>{{ related.number_of_employees }}</td>
-{#                    <td>{{ object.related_product }}</td>#}
                     <td>
-                        {% for obj in related.related_product %}
+                        {% for obj in object.get_organization_product %}
+                            ({{ obj }})
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for obj in object.get_suggestion_product %}
                             ({{ obj }})
                         {% endfor %}
                     </td>
@@ -40,24 +43,20 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Introducer Name</th>
-                    <th scope="col">Introducer Number</th>
-                    <th scope="col">Operator</th>
-                    <th scope="col">Create Time</th>
+                    <th scope="col">نام معرف</th>
+                    <th scope="col">شماره معرف</th>
+                    <th scope="col">ادمین مربوطه</th>
+                    <th scope="col">تاریخ ثبت</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 <tr>
                     <td>{{ object.introducer_name }}</td>
                     <td>{{ object.introducer_number }}</td>
                     <td>{{ object.operator_info }}</td>
                     <td>{{ object.created_info }}</td>
-
-
                 </tr>
                 </tbody>
-
             </table>
         </div>
     </div>

@@ -3,16 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>
-        Dashboard
-    </title>
+    {% block page_header_title %}
+       Dashboard: {{ request.user.get_full_name }}
+    {% endblock %}
 </head>
 <body>
 {% block base_content %}
     <div class="col p-4">
-
         <div class="card">
-
             <h5 class="card-header font-weight-light">all organizations</h5>
             <table class="table table-striped">
                 <thead>
@@ -23,14 +21,11 @@
                     <th scope="col">شماره تماس</th>
                     <th scope="col">ایمیل</th>
                     <th scope="col">تعداد کارمندان</th>
-                    <th scope="col">related_product</th>
                     <th scope="col">دیدن جزییات</th>
                     <th scope="col">پاک کردن</th>
                 </tr>
                 </thead>
-
                 {% for org in object_list %}
-
                     <tbody>
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
@@ -39,22 +34,12 @@
                         <td>{{ org.number }}</td>
                         <td>{{ org.email }}</td>
                         <td>{{ org.number_of_employees }}</td>
-                        <td>
-                            {% for obj in org.related_product.all %}
-                                ({{ obj }})
-                            {% endfor %}
-                        </td>
                         <td><a href="{% url 'organization:detail' org.pk %}">view detail</a></td>
                         <td><a href="{% url 'organization:delete' org.pk %}">delete</a></td>
-
                     </tr>
                     </tbody>
                 {% endfor %}
-
             </table>
-   {% for s in related.related_product %}
-                    ({{ s }})
-                {% endfor %}
         </div>
         {% include 'dashboard/pagination.html' %}
         {#        <a href="{% url 'phones:print-number' %}" class="btn btn-primary col-md-1">Print</a>#}

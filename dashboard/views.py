@@ -18,19 +18,18 @@ def show_dashboard(request):
     """
     Display special organization information for each operator
     """
-    # if not request.user.is_superuser:
+
     if request.user.is_authenticated:
-        operator_organization = models.OrganizationInfo.objects.filter(operator_info=request.user)
-        related_product = models.OrganizationProduct.objects.all()
-        # related_product = models.OrganizationProduct.objects.filter(id__in=models.OrganizationInfo.related_product)
+        if not request.user.is_superuser:
+            operator_organization = models.OrganizationInfo.objects.filter(operator_info=request.user)
+        else:
+            operator_organization = models.OrganizationInfo.objects.all()
         other_number = []
         qs = list(itertools.chain(operator_organization, other_number))
         paginated = Paginator(qs, 3)
         paginated_page = paginated.get_page(request.GET.get('page', 1))
         return render(request=request,
                       context={'object_list': paginated_page,
-                               'page_obj': 'paginated',
-                               'related': related_product,
                                },
                       template_name='dashboard/dashboard.html')
     else:

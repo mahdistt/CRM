@@ -13,10 +13,10 @@ class ViewOrganization(DetailView):
     """
     model = models.OrganizationInfo
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.setdefault("related", models.OrganizationProduct.objects)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context.setdefault("related", models.OrganizationProduct.objects)
+    #     return context
 
 
 class OrganizationDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):

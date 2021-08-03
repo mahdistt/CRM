@@ -7,10 +7,6 @@ from product import models as Product
 phone_re = RegexValidator(regex='^0[0-9]{2,}[0-9]{7,}$', message='شماره وارد شده صحیح نیست!')
 
 
-# ('^(\\+98|0)?9\\d{9}$')
-# (+98|0|98|0098)?([ ]|-|[()]){0,2}9[0-9]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/
-
-
 # Create your models here.
 class OrganizationInfo(models.Model):
     """
@@ -33,6 +29,20 @@ class OrganizationInfo(models.Model):
 
     def __str__(self):
         return self.name
+    def get_organization_name(self):
+        return self.name
+
+    def get_organization_product(self):
+        return [product.organization_product_name for product in self.related_product.all()]
+
+    def get_suggestion_product(self):
+        """
+        Returns a list of related and non-duplicate products
+        """
+        products = set()
+        for product in self.related_product.all():
+            products.update(set(product.get_related_product()))
+        return list(products)
 
 
 class OrganizationProduct(models.Model):
@@ -48,3 +58,6 @@ class OrganizationProduct(models.Model):
     class Meta:
         verbose_name = 'Related'
         verbose_name_plural = 'Related Product'
+
+    def get_related_product(self):
+        return [product.name for product in self.related_product.all()]
