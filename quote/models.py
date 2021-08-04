@@ -24,7 +24,7 @@ class Quote(models.Model):
         Total price without taxation and discount
         """
         return self.quoteitem_set.all().annotate(
-            total_quote_price=F('price') * F('price')).aggregate(
+            total_quote_price=F('price') * F('quantity')).aggregate(
             Sum('total_quote_price'))['total_quote_price__sum']
 
     def get_quote_discount(self):
@@ -33,12 +33,12 @@ class Quote(models.Model):
         """
         return self.quoteitem_set.all().annotate(
             total_quote_price=F('price') * F('quantity')).annotate(
-            discount=((F('total_quote_price') * F('discount')) / 100)).aggregate(
-            Sum('discount'))['discount__sum']
+            calculate_discount=(F('total_quote_price') * F('discount') / 100)).aggregate(
+            Sum('calculate_discount'))['calculate_discount__sum']
 
     def get_quote_taxation(self):
         """
-        Calculate 9% taxation
+        Calculate 9% taxation if boolean is TRUE
         """
         if ProductInfo.taxation is True:
             total, discount = self.get_total_quote_price(), self.get_quote_discount()

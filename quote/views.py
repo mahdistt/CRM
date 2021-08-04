@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 
 from quote.forms import QuoteCreateViewForm
 from . import models
@@ -25,7 +25,18 @@ class QuoteListView(LoginRequiredMixin, ListView):
     """
     Show all quotes created by the operator
     """
-    model = models.Quote
+    model = models.QuoteItem
     template_name = 'list-quote.html'
     paginate_by = 5
 
+
+class QuoteDetailView(LoginRequiredMixin, DetailView):
+    """
+    Show a "detail" view of an Quote (calculate).
+    """
+    model = models.Quote
+    template_name = 'detail-quote.html'
+
+    def get_queryset(self):
+        quote = models.Quote.objects.filter(pk=self.kwargs['pk'], creator=self.request.user)
+        return quote

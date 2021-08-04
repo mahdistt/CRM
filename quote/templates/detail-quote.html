@@ -1,0 +1,83 @@
+{% extends 'dashboard/base.html' %}
+
+{% block page_header_title %}
+    Quote: {{ quote.organization_related }}
+{% endblock %}
+{% block base_content %}
+    <div class="col p-4">
+        <div class="card">
+            <h5 class="card-header font-weight-light" id="label1">Quote detail: {{ object.organization_related }}</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ردیف</th>
+                    <th scope="col">کد کالا</th>
+                    <th scope="col">نام کالا</th>
+                    <th scope="col">قیمت</th>
+                    <th scope="col">تعداد</th>
+                    <th scope="col">درصد تخفیف</th>
+                    <th scope="col">درصد مالیات</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in quote.quoteitem_set.all %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ item.pk }}</td>
+                        <td>{{ item.product }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>
+                            {% if item.discount %}
+                                {{ item.discount }}   % درصد
+                            {% else %}
+                                {{ 'تخفیف نداد' }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.product.taxation %}
+                                {{ '9% مالیات' }}
+                            {% else %}
+                                {{ 'مالیات نداد' }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                <td>{{ quote.get_total_quote_price }}</td>
+                <th scope="col"></th>
+                <th scope="col">:قیمت خام</th>
+                <td>{{ quote.get_total_quote_price }}</td>
+                <td>{{ object.get_quantity }}</td>
+                <td></td>
+                <td>{{ object.get_quote_taxation }}</td>
+                </tbody>
+            </table>
+            <h5 class="card-header font-weight-light" id="label2">Operator Information: {{ object.creator }}</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">نام معرف</th>
+                    <th scope="col">شماره معرف</th>
+                    <th scope="col">ادمین مربوطه</th>
+                    <th scope="col">:محاسبه مالیات</th>
+                    <th scope="col">:محاسبه تخفیف</th>
+                    <th scope="col">:قیمت کلی</th>
+                    <th scope="col">:قیمت کلی</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ object.creator }}</td>
+                    <td>{{ object.organization_related }}</td>
+                    <td>{{ object.created_info }}</td>
+                    <td>{{ object.get_quantity }}</td>
+                    <td>{{ object.get_total_quote_price }}</td>
+                    <td>-{{ object.get_quote_discount }}</td>
+                    <td>{{ object.get_quote_taxation }}</td>
+                    <td>{{ object.get_total_price }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

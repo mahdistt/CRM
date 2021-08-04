@@ -4,51 +4,49 @@
 <head>
     <meta charset="UTF-8">
     {% block page_header_title %}
-       Quote lis: {{ request.user.get_full_name }}
+       Quote lis: dwq
     {% endblock %}
 </head>
 <body>
 {% block base_content %}
     <div class="col p-4">
         <div class="card">
-            <h5 class="card-header font-weight-light">all organizations</h5>
+            <h5 class="card-header font-weight-light">All organizations quote </h5>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">ردیف</th>
-                    <th scope="col">نام سازمان</th>
-                    <th scope="col">استان</th>
-                    <th scope="col">شماره تماس</th>
-                    <th scope="col">ایمیل</th>
-                    <th scope="col">تعداد کارمندان</th>
-                    <th scope="col">دیدن جزییات</th>
-                    <th scope="col">پاک کردن</th>
+                    <th scope="col">اپراتور</th>
+                    <th scope="col">نام مشتری</th>
+                    <th scope="col">دستگاه ها</th>
+                    <th scope="col">جزییات</th>
+                    <th scope="col">pdf خروجی</th>
+                    <th scope="col">عملیات</th>
                 </tr>
                 </thead>
-                {% for org in quote_list %}
+                {% for org in object_list %}
                     <tbody>
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ org.creator }}</td>
                         <td>{{ org.organization_related }}</td>
                         <td>{{ org.created_info }}</td>
-                        <td><a href="{% url 'organization:detail' org.pk %}">view detail</a></td>
-                        <td><a href="{% url 'organization:delete' org.pk %}">delete</a></td>
+                        <td><a href="{% url 'quote:detail-quote' org.pk %}">نمایش</a></td>
+                        <td><a href="{% url 'quote:detail-quote' org.pk %}">حذف</a></td>
                     </tr>
                     </tbody>
                 {% endfor %}
             </table>
         </div>
-        {% include 'dashboard/pagination.html' %}
         {#        <a href="{% url 'phones:print-number' %}" class="btn btn-primary col-md-1">Print</a>#}
     </div>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+{#    {% if messages %}#}
+{#        <ul class="messages">#}
+{#            {% for message in messages %}#}
+{#                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    {% endif %}#}
 {% endblock %}
 </body>
 </html>
