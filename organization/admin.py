@@ -16,7 +16,7 @@ class RegisterOrganization(admin.ModelAdmin):
         'operator_info',
         'created_info',
     )
-    search_fields= (
+    search_fields = (
         'name',
         'number',
     )
@@ -33,7 +33,6 @@ class RegisterOrganization(admin.ModelAdmin):
         'created_info',
 
     )
-
 
 
 @admin.register(models.OrganizationProduct)

@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Sum, F
 
@@ -10,12 +9,12 @@ class Quote(models.Model):
     """
     Create a quote by user
     """
-    creator = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, verbose_name='نام ادمین')
+    creator = models.ForeignKey('auth.User', on_delete=models.PROTECT, verbose_name='نام ادمین')
     organization_related = models.ForeignKey(OrganizationInfo, on_delete=models.PROTECT, verbose_name='شرکت')
     created_info = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
 
     def __str__(self):
-        return self.organization_related
+        return f'{self.organization_related}'
 
     def get_quantity(self):
         return self.quoteitem_set.all().aggregate(Sum('quantity')).get('quantity__sum', 0)
@@ -59,7 +58,7 @@ class QuoteItem(models.Model):
     discount = models.PositiveIntegerField(default=0, verbose_name='تخفیف')
 
     def __str__(self):
-        return self.quote
+        return f'{self.quote}'
 
     def get_total_price(self):
         return self.price * self.quantity
