@@ -62,3 +62,12 @@ class QuoteItem(models.Model):
 
     def get_total_price(self):
         return self.price * self.quantity
+
+
+class EmailHistory(models.Model):
+    """
+     Save email status
+    """
+    creator = models.ForeignKey('auth.User', on_delete=models.PROTECT, verbose_name='نام ادمین')
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
+    email = models.CharField(max_length=100, verbose_name='ایمیل')

@@ -7,11 +7,11 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: usr_phonebook
+      POSTGRES_USER: User_mahdi
       POSTGRES_PASSWORD: 123456
       PGPASSWORD: 123456
-      POSTGRES_DB: phonebook_db
+      POSTGRES_DB: CrmDb
       PGDATA: /db_data
     volumes:
-      - BlogDbData2:/db_data
+      - CrmDbData2:/db_data
 
