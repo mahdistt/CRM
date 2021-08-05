@@ -22,6 +22,7 @@ class RelatedProduct(admin.ModelAdmin):
     )
 
 
+
 @admin.register(models.QuoteItem)
 class RelatedProduct(admin.ModelAdmin):
     list_display = (

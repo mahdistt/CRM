@@ -32,7 +32,7 @@
                         <td>{{ org.organization_related }}</td>
                         <td>{{ org.created_info }}</td>
                         <td><a href="{% url 'quote:detail-quote' org.pk %}">نمایش</a></td>
-                        <td><a href="{% url 'quote:detail-quote' org.pk %}">حذف</a></td>
+                        <td><a href="{% url 'quote:pdf-quote' org.pk %}">پرینت</a></td>
                     </tr>
                     </tbody>
                 {% endfor %}

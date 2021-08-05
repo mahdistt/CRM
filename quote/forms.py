@@ -1,4 +1,5 @@
 from django import forms
+
 from . import models
 
 
@@ -17,5 +18,5 @@ class QuoteCreateViewForm(forms.ModelForm):
             'discount': forms.NumberInput,
             'price': forms.NumberInput,
             'quote': forms.Select,
-        }
 
+        }

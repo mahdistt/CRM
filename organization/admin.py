@@ -31,7 +31,6 @@ class RegisterOrganization(admin.ModelAdmin):
         'operator_info',
         'number_of_employees',
         'created_info',
-
     )
 
 

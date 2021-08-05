@@ -37,6 +37,11 @@ class QuoteDetailView(LoginRequiredMixin, DetailView):
     model = models.Quote
     template_name = 'detail-quote.html'
 
-    def get_queryset(self):
-        quote = models.Quote.objects.filter(pk=self.kwargs['pk'], creator=self.request.user)
-        return quote
+
+class QuotePDFView(LoginRequiredMixin, DetailView):
+    """
+    Convert quote to pdf
+    """
+    model = models.Quote
+    template_name = 'pdf-quote.html'
+
