@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     {% block page_header_title %}
-       Quote lis: dwq
+        Quote lis: dwq
     {% endblock %}
 </head>
 <body>
@@ -39,15 +39,46 @@
                 {% endfor %}
             </table>
         </div>
-
+        <div class="card-body">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-primary justify-content-center">
+                    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}"><a class="page-link"
+                                                                                                   href="?page=1">
+                        <span aria-hidden="true"><i class="bi bi-chevron-double-left"></i></span>
+                    </a></li>
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            <span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+                        </a></li>
+                    {% endif %}
+                    {% for page in page_obj.paginator %}
+                        <li class="page-item {% if page_obj.number == forloop.counter %}active{% endif %}"><a
+                                class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            <span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+                        </a></li>
+                    {% endif %}
+                    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}"><a class="page-link"
+                                                                                               href="?page={{ page_obj.paginator.num_pages }}">
+                        <span aria-hidden="true"><i class="bi bi-chevron-double-right"></i></span>
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
-{#    {% if messages %}#}
-{#        <ul class="messages">#}
-{#            {% for message in messages %}#}
-{#                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#    {% endif %}#}
+    <br>
+
+
+    {#    {% if messages %}#}
+    {#        <ul class="messages">#}
+    {#            {% for message in messages %}#}
+    {#                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+    {#            {% endfor %}#}
+    {#        </ul>#}
+    {#    {% endif %}#}
 {% endblock %}
+
 </body>
 </html>

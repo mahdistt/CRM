@@ -33,8 +33,7 @@ class QuoteListView(LoginRequiredMixin, ListView):
     """
     model = models.Quote
     template_name = 'list-quote.html'
-    paginate_by = 5
-
+    paginate_by = 3
 
 class QuoteDetailView(LoginRequiredMixin, DetailView):
     """

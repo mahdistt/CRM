@@ -18,7 +18,6 @@ def show_dashboard(request):
     """
     Display special organization information for each operator
     """
-
     if request.user.is_authenticated:
         if not request.user.is_superuser:
             operator_organization = models.OrganizationInfo.objects.filter(operator_info=request.user)
