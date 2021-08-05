@@ -40,11 +40,18 @@ class Quote(models.Model):
         """
         Calculate 9% taxation if boolean is TRUE
         """
-        if ProductInfo.taxation is True:
+        if ProductInfo.taxation:
             total, discount = self.get_total_quote_price(), self.get_quote_discount()
-            return (total - discount) * 0.9
+            return (total - discount) * 0.09
         else:
             return 0
+
+    def get_final_quote_price(self):
+        """
+        Return final quote price
+        """
+        total, discount, taxation = self.get_total_quote_price(), self.get_quote_discount(), self.get_quote_taxation()
+        return( total - discount )+ taxation
 
 
 class QuoteItem(models.Model):

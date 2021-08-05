@@ -31,7 +31,7 @@ class QuoteListView(LoginRequiredMixin, ListView):
     """
     Show all quotes created by the operator
     """
-    model = models.QuoteItem
+    model = models.Quote
     template_name = 'list-quote.html'
     paginate_by = 5
 
@@ -61,7 +61,7 @@ def send_email(request, pk):
     quote_objects = models.Quote.objects.get(pk=pk, creator=request.user)
     if quote_objects:
         template = render_to_string('email-templates.txt', {'object_list': quote_objects})
-        organization_email = quote_objects.organization.email
+        organization_email = quote_objects.organization_related.email
         operator = request.user
         celery_tasks.sed_email_celery.delay(template, operator, organization_email)
         messages.success(request, 'The email send successfully.')

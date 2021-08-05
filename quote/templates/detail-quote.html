@@ -25,7 +25,7 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ item.pk }}</td>
                         <td>{{ item.product }}</td>
-                        <td>price</td>
+                        <td>{{ item.price }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>
                             {% if item.discount %}
@@ -43,38 +43,34 @@
                         </td>
                     </tr>
                 {% endfor %}
-                <td>{{ quote.get_total_quote_price }}</td>
-                <th scope="col"></th>
-                <th scope="col">:قیمت خام</th>
-                <td>{{ quote.get_total_quote_price }}</td>
+                <th scope="col">جمع فاکتور</th>
+               <td></td>
+               <td></td>
+               <td>{{ object.get_total_quote_price }}</td>
                 <td>{{ object.get_quantity }}</td>
-                <td></td>
-                <td>{{ object.get_quote_taxation }}</td>
+
+
                 </tbody>
             </table>
-            <h5 class="card-header font-weight-light" id="label2">Operator Information: {{ object.creator }}</h5>
+            <h5 class="card-header font-weight-light" id="label2">Result: {{ object.creator }}</h5>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">نام معرف</th>
-                    <th scope="col">شماره معرف</th>
-                    <th scope="col">ادمین مربوطه</th>
-                    <th scope="col">:محاسبه مالیات</th>
-                    <th scope="col">:محاسبه تخفیف</th>
+                    <th scope="col">محاسبه</th>
                     <th scope="col">:قیمت کلی</th>
-                    <th scope="col">:قیمت کلی</th>
+                    <th scope="col">:تخیف</th>
+                    <th scope="col">:مالیات</th>
+                    <th scope="col">:قیمت نهایی</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{ object.creator }}</td>
-                    <td>{{ object.organization_related }}</td>
-                    <td>{{ object.created_info }}</td>
-                    <td>{{ object.get_quantity }}</td>
+
+                    <td>قیمت</td>
                     <td>{{ object.get_total_quote_price }}</td>
                     <td>-{{ object.get_quote_discount }}</td>
                     <td>{{ object.get_quote_taxation }}</td>
-                    <td>{{ object.get_total_price }}</td>
+                    <td>{{ object.get_final_quote_price }}</td>
                 </tr>
                 </tbody>
             </table>

@@ -8,4 +8,5 @@ urlpatterns = [
     path('list/', views.QuoteListView.as_view(), name='list-quote'),
     path('detail/<int:pk>', views.QuoteDetailView.as_view(), name='detail-quote'),
     path('print/<int:pk>', views.QuotePDFView.as_view(), name='pdf-quote'),
+    path('email/<int:pk>', views.send_email, name='email-quote'),
 ]

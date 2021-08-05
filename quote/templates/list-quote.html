@@ -30,15 +30,16 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ org.creator }}</td>
                         <td>{{ org.organization_related }}</td>
-                        <td>{{ org.created_info }}</td>
+                        <td>{{ org.organization_related.get_suggestion_product }}</td>
                         <td><a href="{% url 'quote:detail-quote' org.pk %}">نمایش</a></td>
                         <td><a href="{% url 'quote:pdf-quote' org.pk %}">پرینت</a></td>
+                        <td><a href="{% url 'quote:email-quote' org.pk %}">ایمیل</a></td>
                     </tr>
                     </tbody>
                 {% endfor %}
             </table>
         </div>
-        {#        <a href="{% url 'phones:print-number' %}" class="btn btn-primary col-md-1">Print</a>#}
+
     </div>
 {#    {% if messages %}#}
 {#        <ul class="messages">#}
