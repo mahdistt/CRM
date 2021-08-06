@@ -1,4 +1,4 @@
-from celery import Celery
+from celery import Celery, shared_task
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 
@@ -8,6 +8,7 @@ app = Celery('celery_tasks', broker='pyamqp://guest@localhost//', backend='rpc:/
 
 
 @app.task
+@shared_task(serialaizer='json')
 def sed_email_celery(template, operator, organization_email):
     """
     send a email with quot object

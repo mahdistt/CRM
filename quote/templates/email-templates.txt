@@ -1,16 +1,22 @@
-Hi {{object_list.organization.name}} dear.
+
+Hi {{object_list.organization_related.name}} dear.
+
 creat at :
-{{ object.create_time.date|safe }}
+{{ object_list.create_time.date|safe }}
+{{ object_list.created_info }}
+creat by :
+{{ object_list.creator }}
+
 
 Product Name | Price | Quantity | Discount | Taxation
-{% for object in object.quoteitem_set.all %}
-
+{% for object in object_list.quoteitem_set.all %}
 {{ object.product.name }},{{ object.price }},{{ object.quantity }},{{ object.discount }}%,  {% if item.product.taxation %}'9% مالیات'{% else %} 'مالیات نداد' {% endif %}
 {% endfor %}
+
 ------------------------------------------------------------------------------------------------------------------------
 Result(total):
 Qty | Price | Discount | Taxation
 
-{{ object.get_quantity }} | {{ object.get_total_quote_price }} | {{ object.get_quote_discount }} | {{ object.get_quote_taxation }}
+{{ object_list.get_quantity }} | {{ object_list.get_total_quote_price }} | {{ object_list.get_quote_discount }} | {{ object_list.get_quote_taxation }}
 
-Final: | {{ object.get_final_quote_price }}
+Final: | {{ object_list.get_final_quote_price }}

@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, DeleteView
-
 from . import models
 
 
@@ -19,5 +18,5 @@ class OrganizationDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView
         Delete view for delete one of organizations
     """
     model = models.OrganizationInfo
-    success_message = "%(name) was delete successfully"
+    success_message = "was delete successfully"
     success_url = reverse_lazy('dashboard:dashboard')

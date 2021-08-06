@@ -51,7 +51,7 @@ class Quote(models.Model):
         Return final quote price
         """
         total, discount, taxation = self.get_total_quote_price(), self.get_quote_discount(), self.get_quote_taxation()
-        return( total - discount )+ taxation
+        return (total - discount) + taxation
 
 
 class QuoteItem(models.Model):
@@ -78,3 +78,6 @@ class EmailHistory(models.Model):
     creator = models.ForeignKey('auth.User', on_delete=models.PROTECT, verbose_name='نام ادمین')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
     email = models.CharField(max_length=100, verbose_name='ایمیل')
+
+    def __str__(self):
+        return f'{self.creator}'

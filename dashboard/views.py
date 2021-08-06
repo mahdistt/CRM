@@ -42,31 +42,5 @@ class CreateFormOrganization(LoginRequiredMixin, SuccessMessageMixin, CreateView
     model = models.OrganizationInfo
     form_class = OrganizationRegisterForm
     template_name = 'dashboard/register_organization.html'
-    success_message = "%(name) was register successfully"
+    success_message = "was register successfully"
     success_url = reverse_lazy('dashboard:dashboard')
-
-# Ajax view for register form
-# ------------------------------------
-# @require_POST
-# def get_info_register_form(request):
-#     """
-#     register organizations by form (AJAX)
-#     """
-#
-#     form_instance = forms.OrganizationRegisterForm(data=request.POST)
-#     if not form_instance.is_valid():
-#         form_instance.instance.operator_info = request.user
-#         form_instance.save()
-#         return render(request, 'dashboard/dashboard.html')
-#
-# ------------------------------------
-# @require_GET
-# @login_required
-# def show_register_organization_form(request):
-#     """
-#     Show register form by widget tweaks
-#     """
-#     return render(request, 'dashboard/register_organization.html', {
-#         'form_org': forms.OrganizationRegisterForm(),
-#     })
-# ------------------------------------
