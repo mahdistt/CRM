@@ -31,9 +31,9 @@ class OrganizationInfoAPI(ListAPIView):
     API  all organizations related with operator (JWT)
     """
     serializer_class = serializers.OrganizationSerializer
-    queryset = models.OrganizationInfo.objects.all()
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
+    queryset = models.OrganizationInfo.objects.all()
 
     def get_queryset(self):
         qs = super().get_queryset()
