@@ -18,5 +18,5 @@ class OrganizationDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView
         Delete view for delete one of organizations
     """
     model = models.OrganizationInfo
-    success_message = "was delete successfully"
+    success_message = "%(name)s was delete successfully"
     success_url = reverse_lazy('dashboard:dashboard')

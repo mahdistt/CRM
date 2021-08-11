@@ -24,4 +24,5 @@ urlpatterns = [
     path('user/', include('users.urls')),
     path('organization/', include('organization.urls')),
     path('quote/', include('quote.urls')),
+    path('folloup/', include('followup.urls')),
 ]

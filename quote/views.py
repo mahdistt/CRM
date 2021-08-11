@@ -21,7 +21,7 @@ class QuoteCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = models.QuoteItem
     form_class = QuoteCreateViewForm
     template_name = 'create-quote.html'
-    success_message = "was register successfully"
+    success_message = "%(quote)s was register successfully"
     success_url = reverse_lazy('dashboard:dashboard')
 
 

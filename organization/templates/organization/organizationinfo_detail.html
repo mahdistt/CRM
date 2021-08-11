@@ -48,6 +48,7 @@
                     <th scope="col">شماره معرف</th>
                     <th scope="col">ادمین مربوطه</th>
                     <th scope="col">تاریخ ثبت</th>
+                    <th scope="col">پیگیری فروش</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,8 +57,32 @@
                     <td>{{ object.introducer_number }}</td>
                     <td>{{ object.operator_info }}</td>
                     <td>{{ object.created_info }}</td>
+
+                    <td><a href="{% url 'followup:create-followup' %}" class="btn btn-primary "> ثبت</a></td>
                 </tr>
                 </tbody>
+            </table>
+            <table class="table table-success">
+                {#                <thead>#}
+                {#                <tr>#}
+                {#                    <th scope="col">نام معرف</th>#}
+                {#                    <th scope="col">شماره معرف</th>#}
+                {#                    <th scope="col">ادمین مربوطه</th>#}
+                {#                    <th scope="col">تاریخ ثبت</th>#}
+                {#                    <th scope="col">پیگیری فروش</th>#}
+                {#                </tr>#}
+                {#                </thead>#}
+                <h4 style="text-align: center " | class="text text-danger">پیگیری ها</h4>
+                {% for obj in object.followup_set.all %}
+                    <tr>
+                        <td class="text-bold-500">{{ forloop.counter }}</td>
+                        <td>
+                        </td>
+                        <td>{{ obj.body | truncatechars:50 }} </td>
+                        <td><a href="{% url 'followup:detail-followup' obj.pk %}" class="btn btn-primary ">مشاهده</a></td>
+                    </tr>
+                {% endfor %}
+
             </table>
         </div>
     </div>

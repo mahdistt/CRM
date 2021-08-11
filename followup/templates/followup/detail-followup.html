@@ -1,0 +1,29 @@
+{% extends 'dashboard/base.html' %}
+
+{% block page_header_title %}
+    Follow Up: {{ object.subject }}
+{% endblock %}
+{% block base_content %}
+    <div class="col p-4">
+        <div class="card">
+            <h5 class="card-header font-weight-light" id="label1">organization info: {{ object.organization_related }}</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">موضوع</th>
+                    <th scope="col">متن پیگیری</th>
+                    <th scope="col">تاریخ ثبت</th>
+                    <th scope="col">اپراتور مربوطه</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                        <td>{{ object.subject }} </td>
+                        <td>{{ object.body }} </td>
+                        <td>{{ object.created_time }} </td>
+                        <td>{{ object.creator_related }} </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

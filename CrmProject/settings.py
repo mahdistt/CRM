@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'dashboard',
     'users',
     'quote',
+    'followup',
     'organization',
     'product',
 ]
