@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% load widget_tweaks %}
 {% load static %}
-    {% block page_header_title %} Follow Up {% endblock %}
+{% block page_header_title %} Follow Up {% endblock %}
 {% block base_content %}
     <div class="col p-4">
         <div class="card">
@@ -9,16 +9,55 @@
             <form method="post" ALIGN='center'>
                 {% csrf_token %}
                 <label for="id_name" id="name">موضوع:</label>
-                {{ form.subject|add_class:'form-contorl'}}<br>
+                {{ form.subject|add_class:'form-contorl' }}<br>
                 <label for="id_city" id="city">متن پیگریی:</label>
                 {{ form.body|add_class:'form-contol' }}<br>
                 <label for="id_number_of_employees" id="number_of_employees">نام شرکت:</label>
                 {{ form.organization_related|add_class:'form-contorl' }}<br>
-                <button id="send-form" class="btn btn-primary " name="submit">save💾</button>
                 <a href="{% url 'followup:create-followup' %}" class="btn btn-danger col-md-1">Reset</a>
             </form>
+            <button id="send-form" class="btn btn-primary " name="submit">save💾</button>
+
         </div>
     </div>
+
 {% endblock %}
+
+
 {% block page_scripts %}
+    <script>
+        $(document).ready(function () {
+            $("#send-form").click(function (event) {
+                var subject = $('#id_subject').val();
+                var body = $('#id_body').val();
+                var organization_related = $('#id_organization_related').val();
+                var pathname = window.location.pathname;
+                var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
+
+                $.ajax({
+                    method: 'POST',
+                    url: pathname,
+                    headers: {"X-CSRFToken": $crf_token},
+                    data: {
+                        subject: subject,
+                        body: body,
+                        organization_related: organization_related,
+
+                    },
+
+                    success: function (response) {
+                        $('#success').append(
+                            alert('یافت شد')
+                        );
+                    },
+                    error: function (response) {
+                        $('#error').append(
+                            alert('فرم صحیح نیست ')
+                        );
+                    },
+
+                });
+            });
+        });
+    </script>
 {% endblock %}

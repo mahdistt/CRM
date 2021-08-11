@@ -15,14 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
+from organization.views import OrganizationInfoAPI
 from users import views
 
 urlpatterns = [
     path('crm/', admin.site.urls),
-    path('dashboard/', include('dashboard.urls')),
+    path('', include('dashboard.urls')),
     path('user/', include('users.urls')),
     path('organization/', include('organization.urls')),
     path('quote/', include('quote.urls')),
-    path('folloup/', include('followup.urls')),
+    path('followup/', include('followup.urls')),
+    path('api/', include('rest_framework.urls')),
+    path('api/v1/organization-info', OrganizationInfoAPI.as_view(), name='organization-api'),
+    path('api/jwt/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]

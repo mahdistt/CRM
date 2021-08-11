@@ -3,7 +3,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, DeleteView
-from . import models
+from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from . import models, serializers
 
 
 class ViewOrganization(DetailView):
@@ -20,3 +24,17 @@ class OrganizationDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView
     model = models.OrganizationInfo
     success_message = "%(name)s was delete successfully"
     success_url = reverse_lazy('dashboard:dashboard')
+
+
+class OrganizationInfoAPI(ListAPIView):
+    """
+    API  all organizations related with operator (JWT)
+    """
+    serializer_class = serializers.OrganizationSerializer
+    queryset = models.OrganizationInfo.objects.all()
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_info=self.request.user)
